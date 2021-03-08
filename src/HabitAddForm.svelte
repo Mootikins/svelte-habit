@@ -10,7 +10,7 @@
 	};
 </script>
 
-<form class="flex flex-col space-y-2">
+<div class="flex flex-col w-full space-y-2">
 	<div class="flex flex-col space-y-2">
 		<div class="flex flex-row items-center justify-between">
 			<label for="habit-name" class="block ml-1 text-gray-700">
@@ -18,7 +18,7 @@
 			</label>
 			<button
 				type="button"
-				class="p-1 text-white bg-red-500 border border-red-700 rounded-md"
+				class="p-2 text-white bg-red-500 border border-red-700 rounded-md"
 				on:click={() => {
 					dispatch('cancelAdd');
 				}}
@@ -45,7 +45,7 @@
 	>
 		Add Habit
 	</button>
-</form>
+</div>
 
 <style>
 </style>

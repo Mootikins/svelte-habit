@@ -63,35 +63,35 @@
 </script>
 
 <svelte:window on:resize={resize} on:load={loadHabits} on:unload={saveHabits} />
-<div class="flex flex-col items-center root space-y-4">
-	<div class="flex flex-col items-center space-y-4">
+<div class="flex flex-col items-center root space-y-2">
+	<div class="flex flex-col items-center space-y-2">
 		<HabitGraph />
-		<div
-			class="w-full p-2 bg-gray-100 border border-gray-400 rounded-md space-y-2"
+		<button
+			class="content-center w-full p-4 text-xl font-bold text-white bg-green-500 border border-green-700 rounded-md disabled:bg-green-200 disabled:text-green-300"
+			on:click={() => {
+				addingHabit = true;
+			}}
+			disabled={addingHabit}
 		>
-			<button
-				class="content-center w-full p-4 text-xl font-bold text-white bg-green-500 border border-green-700 rounded-md disabled:bg-green-200 disabled:text-green-300"
-				on:click={() => {
-					addingHabit = true;
+			Add a new Habit
+		</button>
+		{#if addingHabit}
+			<HabitAddForm
+				on:addHabit={addHabit}
+				on:cancelAdd={() => {
+					addingHabit = false;
 				}}
-				disabled={addingHabit}
+			/>
+		{/if}
+		{#if habits.length > 0}
+			<div
+				class="w-full space-y-2"
 			>
-				Add a new Habit
-			</button>
-			{#if addingHabit}
-				<HabitAddForm
-					on:addHabit={addHabit}
-					on:cancelAdd={() => {
-						addingHabit = false;
-					}}
-				/>
-			{/if}
-			{#if habits.length > 0}
 				{#each habits as habit, i}
 					<Habit {habit} />
 				{/each}
-			{/if}
-		</div>
+			</div>
+		{/if}
 	</div>
 </div>
 
