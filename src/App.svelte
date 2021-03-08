@@ -35,9 +35,34 @@
 		];
 		addingHabit = false;
 	}
+
+	function loadHabits() {
+		if (window.localStorage) {
+			let habitsStr = window.localStorage.getItem('habits');
+			try {
+				let parsed = JSON.parse(habitsStr || '');
+				if (
+					'length' in parsed &&
+					parsed.length > 0 &&
+					'name' in parsed[0] &&
+					'id' in parsed[0]
+				) {
+					habits = parsed;
+				}
+			} catch (e) {
+				console.log(
+					'Ooops, something went wrong when trying to load your habits!'
+				);
+			}
+		}
+	}
+
+	function saveHabits() {
+		window.localStorage.setItem('habits', JSON.stringify(habits));
+	}
 </script>
 
-<svelte:window on:resize={resize} />
+<svelte:window on:resize={resize} on:load={loadHabits} on:unload={saveHabits} />
 <div class="flex flex-col items-center root space-y-4">
 	<div class="flex flex-col items-center space-y-4">
 		<HabitGraph />
@@ -55,7 +80,7 @@
 			</button>
 			{#if addingHabit}
 				<HabitAddForm
-					on:addHabit
+					on:addHabit={addHabit}
 					on:cancelAdd={() => {
 						addingHabit = false;
 					}}

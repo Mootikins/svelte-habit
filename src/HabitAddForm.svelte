@@ -38,9 +38,7 @@
 	<button
 		class="content-center w-full p-2 text-xl font-bold text-white bg-green-500 border border-green-700 rounded-md disabled:bg-green-200 disabled:text-green-300"
 		on:click={() => {
-			dispatch('addHabit', {
-				habit: newHabit,
-			});
+			dispatch('addHabit', { habit: newHabit });
 		}}
 		type="button"
 		disabled={newHabit.name === ''}
