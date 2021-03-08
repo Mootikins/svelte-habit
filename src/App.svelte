@@ -26,8 +26,6 @@
 				habits.length > 0 ? habits[0].id : 0
 			);
 
-		console.log(newId);
-
 		habits = [
 			...habits,
 			{
@@ -56,7 +54,12 @@
 				Add a new Habit
 			</button>
 			{#if addingHabit}
-				<HabitAddForm on:addHabit={addHabit} />
+				<HabitAddForm
+					on:addHabit
+					on:cancelAdd={() => {
+						addingHabit = false;
+					}}
+				/>
 			{/if}
 			{#if habits.length > 0}
 				{#each habits as habit, i}
